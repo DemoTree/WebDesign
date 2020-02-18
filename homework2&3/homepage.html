@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    }
+    </style>
+</head>
+
+<body class="homepage">
+    <div class="top">
+        <ul>
+            <li><a href="login.html" , style="color:#f5f5f5">退出登录</a></li>
+        </ul>
+    </div>
+    <div class="gallery">
+        <div class="homepage-title">
+            <h1>You are being watched</h1>
+            <div class="border"></div>
+            <p align="center" class="vid">
+                <video src="media/video.mp4" controls="controls" />
+            </p>
+            </br></br>
+            <h1>We're not walking in the dark.We are the dark.</h1>
+            <div class="border"></div>
+            <a href="media/img1.jpg" class="image">
+                <img class="lazy" src="media/lazy.jpg" data-src="media/img1.jpg">
+            </a>
+            <a href="media/img2.jpg" class="image">
+                <img class="lazy" src="media/lazy.jpg" data-src="media/img2.jpg">
+            </a>
+            <a href="media/img3.jpg" class="image">
+                <img class="lazy" src="media/lazy.jpg" data-src="media/img3.jpg">
+            </a>
+            <a href="media/img4jpg" class="image">
+                <img class="lazy" src="media/lazy.jpg" data-src="media/img4.jpg">
+            </a>
+            <a href="media/img5.jpg" class="image">
+                <img class="lazy" src="media/lazy.jpg" data-src="media/img5.jpg">
+            </a>
+            <a href="media/img6.jpg" class="image">
+                <img class="lazy" src="media/lazy.jpg" data-src="media/img6.jpg">
+            </a>
+            <a href="media/img21.jpg" class="image">
+                <img class="lazy" src="media/lazy.jpg" data-src="media/img21.jpg">
+            </a>
+            <a href="media/img22.jpg" class="image">
+                <img class="lazy" src="media/lazy.jpg" data-src="media/img22.jpg">
+            </a>
+            <a href="media/img23.jpg" class="image">
+                <img class="lazy" src="media/lazy.jpg" data-src="media/img23.jpg">
+            </a>
+            <a href="media/img24.jpg" class="image">
+                <img class="lazy" src="media/lazy.jpg" data-src="media/img24.jpg">
+            </a>
+        </div>
+    </div>
+</body>
+<script>
+//图片懒加载
+window.onload = function() {
+    // 获取图片列表
+    var imgs = document.querySelectorAll('img');
+
+    // 获取到浏览器顶部的距离
+    function getTop(e) {
+        return e.offsetTop;
+    }
+
+    // 懒加载实现
+    function lazyload(imgs) {
+        // 可视区域高度
+        var h = window.innerHeight;
+        //滚动区域高度
+        var s = document.documentElement.scrollTop || document.body.scrollTop;
+        for (var i = 0; i < imgs.length; i++) {
+            //图片距离顶部的距离大于可视区域和滚动区域之和时懒加载
+            if ((h + s) > getTop(imgs[i])) {
+                (function(i) {
+                    setTimeout(function() {
+                        //创建一个临时图片，这个图片在内存中不会到页面上去。实现隐形加载
+                        var temp = new Image();
+                        temp.src = imgs[i].getAttribute('data-src'); //只会请求一次
+                        // onload判断图片加载完毕，真是图片加载完毕，再赋值给dom节点
+                        temp.onload = function() {
+                            // 获取自定义属性data-src，用真图片替换假图片
+                            imgs[i].src = imgs[i].getAttribute('data-src')
+                        }
+                    }, 1000)
+                })(i)
+            }
+        }
+    }
+    lazyload(imgs);
+
+    // 滚屏函数
+    window.onscroll = function() {
+        lazyload(imgs);
+    }
+}
+</script>
+
+</html>

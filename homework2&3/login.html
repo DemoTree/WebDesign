@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="./css/login.css">
+    <script src="js/login.js"></script>
+    <script src="js/index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+        $('.loginForm').on('click', function(event) {
+            var name = $.trim($('#username').val());
+            var password = $.trim($('#password').val());
+            $.ajax({
+                url: 'http://127.0.0.1:8888/login',
+                names: name,
+                passwords: password,
+                success:function(data){
+                    window.location.href='homepage.html';
+                },
+                error:function(data){
+                    window.location.href='login.html';
+                }
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    <div id="background" style="position:absolute; width:100%; height:100%; z-index:-1">
+        <img src="./media/background.jpg" height="100%" width="100%" />
+    </div>
+    <div class="login-main">
+        <div class="form-title">登录</div>
+        <form name="myForm" class="login-form" method="post" action="homepage.html" method="GET" onsubmit="return checkLogin()">
+          <div class="wrong-info" id="wrong-info">
+            </div>
+            <div class="input-content">
+                <input id="username" name="username" type="text" placeholder="用户名">
+            </div>
+            <div class="input-content">
+                <input id="password" name="password" type="password" placeholder="密码">
+            </div>
+            <div class="input-submit">
+                <input id="login" class="loginForm" type="submit" value="登录">
+            </div>
+            <div class="note">
+                <a class="left" href="#"><span>忘记密码?</span></a>
+                <a class="right" href="signup.html"><span>注册账户</span></a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link rel="stylesheet" href="./css/signup.css">
+    <script src="js/signup.js"></script>
+    <script src="js/index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+        $('.signupForm').on('click', function(event) {
+            var name = $.trim($('#userId').val());
+            var password = $.trim($('#userPassword').val());
+            $.ajax({
+                url: 'http://127.0.0.1:8888/signup',
+                names: name,
+                passwords: password,
+                success:function(data){
+                    window.location.href='login.html';
+                },
+                error:function(data){
+                    window.location.href='signup.html';
+                }
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    <div id="background" style="position:absolute; width:100%; height:100%; z-index:-1">
+        <img src="./media/background.jpg" height="100%" width="100%" />
+    </div>
+    <div class="signup-main">
+        <div class="form-title">注册</div>
+        <form name="myForm" class="sigupup-form" method="post" action="http://127.0.0.1:8888/signup" onsubmit="return checkSignup()">
+            <p>
+                <div class="wrong-info" id="wrong-info"></div>
+                <span class="require">*</span>
+                <label for="title" class="title">用户名:</label>
+                <input id="userId" class="signup-input" name="userId" type="text" placeholder="请输入用户名，含4-12个字符或数字">
+            </p>
+            <p>
+                <span class="require">*</span>
+                <label for="title" class="title">密 码:</label>
+                <input class="signup-input" id="userPassword" name="userPassword" type="password" onKeyUp="checkIntensity(this,value)" onBlur="checkIntensity(this.value)" placeholder="请输入密码，含6-12个字符或数字">
+            </p>
+            <table width="250" border="0" cellpadding=2 bordercolor="#EEEEEE" style='display:inline'>
+                <tr align="center">
+                    <td width="40%" align="right">密码强度:</td>
+                    <td width="20%" id="strength_L" bgcolor="#EEEEEE">弱</td>
+                    <td width="20%" id="strength_M" bgcolor="#EEEEEE">中</td>
+                    <td width="20%" id="strength_H" bgcolor="#EEEEEE">强</td>
+                </tr>
+            </table>
+            <p>
+                <span class="require">*</span>
+                <label for="title" class="title">确认密码:</label>
+                <input class="signup-input" name="rePassword" type="password" placeholder="请再次输入密码">
+                <p>
+                    <div class="input-submit">
+                        <input type="submit" class="signupForm" id="ok-btn" value="注册">
+                    </div>
+                    <div class="note">
+                        <a href="login.html"><span>登录账户</span></a>
+                    </div>
+        </form>
+    </div>
+</body>
+
+</html>
